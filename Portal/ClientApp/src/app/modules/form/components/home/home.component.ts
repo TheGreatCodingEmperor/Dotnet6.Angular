@@ -1,0 +1,62 @@
+import { Component, OnInit, Sanitizer } from '@angular/core';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { MasterComponent } from '../master/master.component';
+
+@Component({
+  selector: 'app-home',
+  template: `
+    <p>
+      home works!
+    </p>
+    123
+    <div [innerHtml]="safeHtml"></div>
+  `,
+  styles: [
+  ]
+})
+export class HomeComponent extends MasterComponent implements OnInit {
+  insertHtml=`
+  <h3>Modal Example</h3>
+  <p>Click on the button to open the modal.</p>
+  
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+    Open modal
+  </button>
+</div>
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Modal Heading</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        Modal body..
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>`;
+safeHtml:SafeHtml|null= null;
+  constructor(
+    private sanitizer:DomSanitizer
+  ) { 
+    super();
+    this.safeHtml = this.sanitizer.bypassSecurityTrustHtml(this.insertHtml);
+  }
+
+  override ngOnInit(): void {
+  }
+
+}

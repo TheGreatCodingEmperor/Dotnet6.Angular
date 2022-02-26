@@ -9,8 +9,9 @@
   },
   "private": true,
   "dependencies": {
-    "primeng": "^13.2.0",
-    "bootstrap-material-icons": "2.2.0"
+    "bootstrap": "^5.1.3",
+    "bootstrap-material-icons": "2.2.0",
+    "primeng": "^13.2.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~13.0.0",

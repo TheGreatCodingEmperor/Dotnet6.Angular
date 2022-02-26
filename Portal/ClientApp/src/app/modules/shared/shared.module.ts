@@ -82,10 +82,15 @@ import { TooltipModule } from 'primeng/tooltip';
 import { TreeModule } from 'primeng/tree';
 import { TreeTableModule } from 'primeng/treetable';
 import { VirtualScrollerModule } from 'primeng/virtualscroller';
+import { SideBarComponent } from './components/side-bar/side-bar.component';
+import { TopBarComponent } from './components/top-bar/top-bar.component';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    SideBarComponent,
+    TopBarComponent
+  ],
   imports: [
     AccordionModule,
     AutoCompleteModule,
@@ -172,6 +177,9 @@ import { VirtualScrollerModule } from 'primeng/virtualscroller';
     ReactiveFormsModule
   ],
   exports: [
+    SideBarComponent,
+    TopBarComponent,
+
     AccordionModule,
     AutoCompleteModule,
     AvatarGroupModule,
