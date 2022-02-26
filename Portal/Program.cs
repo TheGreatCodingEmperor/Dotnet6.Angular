@@ -17,11 +17,9 @@ var builder = WebApplication.CreateBuilder (args);
 string connectionString = builder.Configuration["ConnectionStrings:DefaultConnection"];
 string migrationsAssembly = "IDS4.Dotnet6"; //QuickApp
 
-
 // builder.Services.AddDbContext<ApplicationDbContext> (options =>
 //     // options.UseSqlServer (connectionString, b => b.MigrationsAssembly (migrationsAssembly)));
 //     options.UseMySql (connectionString, serverVersion, b => b.MigrationsAssembly (migrationsAssembly)));
-
 
 builder.Services.AddCors (options => {
     // CorsPolicy 是自訂的 Policy 名稱
@@ -38,7 +36,7 @@ builder.Services.AddControllersWithViews ();
 builder.Services.AddSpaStaticFiles (configuration => {
     configuration.RootPath = "ClientApp/dist";
 });
-
+builder.Services.AddEndpointsApiExplorer ();
 builder.Services.AddSwaggerGen ();
 
 var app = builder.Build ();
@@ -60,19 +58,18 @@ if (!builder.Environment.IsDevelopment ()) {
 
 app.UseCors ("CorsPolicy");
 
-app.UseAuthentication();
+app.UseSwagger ();
+app.UseSwaggerUI ();
+
+app.UseAuthentication ();
 app.UseRouting ();
 app.UseAuthorization ();
-
-app.UseSwagger ();
-app.UseSwaggerUI (c => {
-    c.DocumentTitle = "Swagger UI - Portal";
-});
 
 app.UseEndpoints (endpoints => {
     endpoints.MapControllerRoute (
         name: "default",
-        pattern: "{controller}/{action=Index}/{id?}");
+        pattern: "{controller}/{action=Index}/{id?}"
+    );
 });
 app.UseSpa (spa => {
     // To learn more about options for serving an Angular SPA from ASP.NET Core,

@@ -1,5 +1,5 @@
-import { Component, OnInit, Sanitizer } from '@angular/core';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { Component, OnInit, Renderer2, Sanitizer } from '@angular/core';
+import { DomSanitizer, SafeHtml, SafeScript } from '@angular/platform-browser';
 import { MasterComponent } from '../master/master.component';
 
 @Component({
@@ -15,7 +15,8 @@ import { MasterComponent } from '../master/master.component';
   ]
 })
 export class HomeComponent extends MasterComponent implements OnInit {
-  insertHtml=`
+  insertHtml = `
+  <body>
   <h3>Modal Example</h3>
   <p>Click on the button to open the modal.</p>
   
@@ -47,16 +48,47 @@ export class HomeComponent extends MasterComponent implements OnInit {
 
     </div>
   </div>
-</div>`;
-safeHtml:SafeHtml|null= null;
+</div>
+</body>`;
+  insertScript = `
+function call(){
+  var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function() {
+  if(this.readyState === 4) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("GET", "https://localhost:7290/WeatherForecast");
+
+xhr.send();
+}
+call();
+alert();
+console.log("hello world!")
+`;
+  safeHtml: SafeHtml = '';
+  safeScript: SafeScript = '';
   constructor(
-    private sanitizer:DomSanitizer
-  ) { 
+    private sanitizer: DomSanitizer,
+    private renderer: Renderer2,
+  ) {
     super();
     this.safeHtml = this.sanitizer.bypassSecurityTrustHtml(this.insertHtml);
+    this.safeScript = this.sanitizer.bypassSecurityTrustScript(this.insertScript);
   }
 
   override ngOnInit(): void {
+    const script = this.renderer.createElement("script");
+    this.renderer.setProperty(
+      script,
+      "text",
+      this.insertScript
+    );
+    // It will add a new `<script>` on each call
+    this.renderer.appendChild(document.body, script);
   }
 
 }
