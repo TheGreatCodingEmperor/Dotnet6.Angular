@@ -84,12 +84,14 @@ import { TreeTableModule } from 'primeng/treetable';
 import { VirtualScrollerModule } from 'primeng/virtualscroller';
 import { SideBarComponent } from './components/side-bar/side-bar.component';
 import { TopBarComponent } from './components/top-bar/top-bar.component';
+import { DynamicComponentMasterComponent } from './components/dynamic-component-master/dynamic-component-master.component';
 
 
 @NgModule({
   declarations: [
     SideBarComponent,
-    TopBarComponent
+    TopBarComponent,
+    DynamicComponentMasterComponent
   ],
   imports: [
     AccordionModule,
@@ -179,6 +181,7 @@ import { TopBarComponent } from './components/top-bar/top-bar.component';
   exports: [
     SideBarComponent,
     TopBarComponent,
+    DynamicComponentMasterComponent,
 
     AccordionModule,
     AutoCompleteModule,

@@ -20,7 +20,7 @@ export class HomeComponent extends MasterComponent implements OnInit {
   <h3>Modal Example</h3>
   <p>Click on the button to open the modal.</p>
   
-  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal" onclick="call2()">
     Open modal
   </button>
 </div>
@@ -58,6 +58,20 @@ xhr.withCredentials = true;
 xhr.addEventListener("readystatechange", function() {
   if(this.readyState === 4) {
     console.log(this.responseText);
+  }
+});
+
+xhr.open("GET", "https://localhost:7290/WeatherForecast");
+
+xhr.send();
+}
+function call2(){
+  var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function() {
+  if(this.readyState === 4) {
+    document.querySelector('.modal-body').innerHTML = this.responseText;
   }
 });
 
