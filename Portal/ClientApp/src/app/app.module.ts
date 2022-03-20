@@ -5,6 +5,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SharedModule } from './modules/shared/shared.module';
+import { MonacoEditorModule } from 'ngx-monaco-editor';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { SharedModule } from './modules/shared/shared.module';
     SharedModule,
     NoopAnimationsModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MonacoEditorModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

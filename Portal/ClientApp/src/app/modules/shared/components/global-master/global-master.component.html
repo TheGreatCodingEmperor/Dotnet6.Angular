@@ -1,0 +1,36 @@
+<div class="container-fluid layout-theme-light" style="height:100vh;">
+  <div class="row h-100">
+    <!-- 上方列 -->
+    <div id="topBar" class="col-12 p-3 flex position-relative">
+      <button class="btn btn-outline-primary" (click)="iconBarExpand=!iconBarExpand">
+        <mt-icon icon="star"></mt-icon>
+      </button>
+      <button class="btn" (click)="sideBarExpand=!sideBarExpand">
+        <mt-icon icon="list"></mt-icon>
+      </button>
+      <button class="btn" (click)="sideBarRightExpand=!sideBarRightExpand">
+        <mt-icon icon="list"></mt-icon>
+      </button>
+      <ng-container *ngTemplateOutlet="topBarTemplate"></ng-container>
+    </div>
+    <!-- 左側icon欄 -->
+    <div id="iconSideBar" class="icon-side-bar side-bar p-0" [ngClass]="iconBarExpand?'is-open':'is-close'">
+      <ng-container *ngTemplateOutlet="iconBarTemplate"></ng-container>
+    </div>
+    <!-- 左側欄 -->
+    <div id="sideBar" class="{{rwd(2,2,12)}} side-bar p-0" [ngClass]="sideBarExpand?'is-open':'is-close'">
+      <ng-container *ngTemplateOutlet="sideBarTemplate"></ng-container>
+    </div>
+
+    <!-- 主要內容 -->
+    <div id="main-content" class="col" style="height:calc( 100% - 71.6px)">
+      <ng-container *ngTemplateOutlet="mainTemplate"></ng-container>
+    </div>
+
+    <!-- 右側欄 -->
+    <div id="sideBarRight" class="{{rwd(2,2,12)}} side-bar p-0 position-relative" [ngClass]="sideBarRightExpand?'is-open':'is-close'">
+      <div style="width:5px;background:black;height:100%;cursor:ew-resize;position:absolute;top:0px;left:-5px;" (mousedown)="onResize($event)" draggable="false"></div>
+      <ng-container *ngTemplateOutlet="sideBarRightTemplate"></ng-container>
+    </div>
+  </div>
+</div>

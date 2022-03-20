@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GlobalMasterComponent } from 'src/app/modules/shared/components/global-master/global-master.component';
 
 @Component({
   selector: 'app-master',
@@ -10,11 +11,13 @@ import { Component, OnInit } from '@angular/core';
   styles: [
   ]
 })
-export class MasterComponent implements OnInit {
+export class MasterComponent extends GlobalMasterComponent implements OnInit {
 
-  constructor() { }
+  constructor() { 
+    super();
+  }
 
-  ngOnInit(): void {
+  override ngOnInit(): void {
   }
 
 }

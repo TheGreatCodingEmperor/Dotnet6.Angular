@@ -1,9 +1,10 @@
 import { AfterViewInit, ChangeDetectorRef, Compiler, Component, ComponentFactoryResolver, Input, NgModule, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { Card } from 'primeng/card';
 import { InputText } from 'primeng/inputtext';
-import { PrimengComponents } from '../../models/dynamic-primeng-components';
-import { SideBarComponent } from '../side-bar/side-bar.component';
-import { TopBarComponent } from '../top-bar/top-bar.component';
+import { PrimengComponents } from '../../../shared/models/dynamic-primeng-components';
+import { SharedModule } from '../../../shared/shared.module';
+import { SideBarComponent } from '../../../shared/components/side-bar/side-bar.component';
+import { TopBarComponent } from '../../../shared/components/top-bar/top-bar.component';
 
 export interface DynamicComponentConfig {
   component?: string,
@@ -15,6 +16,7 @@ export interface DynamicComponentConfig {
 @Component({
   selector: 'dynamic-master',
   template: `
+  123
     <ng-container #host></ng-container>
   `,
   styles: [
@@ -40,25 +42,30 @@ export class DynamicComponentMasterComponent implements OnInit, AfterViewInit {
 
   loadComponent() {
     this.host?.clear();
-    for (let comp of this.code) {
-      if (comp.component) {
-        let component = PrimengComponents.find(x => x.name == comp.component)?.component;
-        if (component) {
-          let componentFactory = this.cfr.resolveComponentFactory(TopBarComponent);
-          this.host?.createComponent(componentFactory);
-        }
-      }
-      else {
-        this.compiler.clearCache();
+    // for (let comp of this.code) {
+    //   if (comp.component) {
+    //     let component = PrimengComponents.find(x => x.name == comp.component)?.component;
+    //     if (component) {
+    //       let componentFactory = this.cfr.resolveComponentFactory(TopBarComponent);
+    //       this.host?.createComponent(componentFactory);
+    //     }
+    //   }
+    //   else {
+    let template = '<div>Test value: {{test}}</div><input [(ngModel)]="value"/>';
+    this.compiler.clearCache();
+    let host = this.host;
+
+    this.compiler.compileModuleAndAllComponentsAsync(SharedModule).then(
+      (fac) => {
+        console.log(fac);
         const component = Component({
-          template: '<div>Test value: {{test}}</div>',
+          template: template,
           styles: [':host {color: red}']
         })(class {
+          value = new Date;
           test = 'some value';
         });
-        let host = this.host;
-
-        const module = NgModule({ declarations: [component] })(class { });
+        const module = NgModule({ declarations: [component], imports: [] })(class TmpModule { });
         this.compiler.compileModuleAndAllComponentsAsync(module)
           .then(factories => {
             // Get the component factory.
@@ -67,17 +74,19 @@ export class DynamicComponentMasterComponent implements OnInit, AfterViewInit {
             if (host) {
               const componentRef = host.createComponent(factory);
               // Modifying the property and triggering change detection.
-              // setTimeout(() => {
-              //   componentRef.instance.test = 'some other value'
-              // }, 2000);
+              setTimeout(() => {
+                componentRef.instance.test = 'some other value'
+                let componentFactory = this.cfr.resolveComponentFactory(component);
+                this.host?.createComponent(componentFactory);
+              }, 2000);
               this.cdref.detectChanges();
             }
           });
-
-        // let componentFactory = this.cfr.resolveComponentFactory(component);
-        // this.host?.createComponent(componentFactory);
       }
-    }
+    );
+
+    //     }
+    //   }
 
   }
 

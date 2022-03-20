@@ -1,7 +1,11 @@
-<div class="container grid">
-  <div id="top-bar" class="col-12"></div>
-  <div id="side-bar" class=""></div>
-  <div id="main-content"></div>
-  <app-top-bar></app-top-bar>
-  <app-side-bar></app-side-bar>
-</div>
+<app-global-master [iconBarExpand]="iconBarExpand" [sideBarExpand]="sideBarExpand">
+  <ng-template #topBarTemplate>
+    <button class="btn"></button>
+  </ng-template>
+  <ng-template #iconBarTemplate>
+
+  </ng-template>
+  <ng-template #sideBarTemplate>
+    <p-megaMenu [styleClass]="'w-100'" orientation="vertical" [model]="items"></p-megaMenu>
+  </ng-template>
+</app-global-master>

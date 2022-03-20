@@ -84,14 +84,20 @@ import { TreeTableModule } from 'primeng/treetable';
 import { VirtualScrollerModule } from 'primeng/virtualscroller';
 import { SideBarComponent } from './components/side-bar/side-bar.component';
 import { TopBarComponent } from './components/top-bar/top-bar.component';
-import { DynamicComponentMasterComponent } from './components/dynamic-component-master/dynamic-component-master.component';
+import { DynamicComponentMasterComponent } from '../dynamic-component/components/dynamic-component-master/dynamic-component-master.component';
+import { MaterialIconComponent } from './components/material-icon.component';
+import { GlobalMasterComponent } from './components/global-master/global-master.component';
+import { SafePipe } from './pipes/safe.pipe';
 
 
 @NgModule({
   declarations: [
     SideBarComponent,
     TopBarComponent,
-    DynamicComponentMasterComponent
+    MaterialIconComponent,
+    // DynamicComponentMasterComponent,
+    GlobalMasterComponent,
+    SafePipe
   ],
   imports: [
     AccordionModule,
@@ -181,7 +187,11 @@ import { DynamicComponentMasterComponent } from './components/dynamic-component-
   exports: [
     SideBarComponent,
     TopBarComponent,
-    DynamicComponentMasterComponent,
+    MaterialIconComponent,
+    GlobalMasterComponent,
+    // DynamicComponentMasterComponent,
+
+    SafePipe,
 
     AccordionModule,
     AutoCompleteModule,

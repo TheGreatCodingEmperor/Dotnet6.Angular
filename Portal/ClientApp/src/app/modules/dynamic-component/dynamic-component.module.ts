@@ -6,6 +6,8 @@ import { HomeComponent } from './components/home/home.component';
 import { SharedModule } from '../shared/shared.module';
 import { JitCompilerFactory } from '@angular/platform-browser-dynamic';
 import {BrowserModule} from '@angular/platform-browser';
+import { DynamicComponentMasterComponent } from './components/dynamic-component-master/dynamic-component-master.component';
+import { CustomScriptComponent } from './components/custom-script/custom-script.component';
 
 export function createCompiler(compilerFactory: CompilerFactory) {
   return compilerFactory.createCompiler();
@@ -13,7 +15,9 @@ export function createCompiler(compilerFactory: CompilerFactory) {
 
 @NgModule({
   declarations: [
-    HomeComponent
+    HomeComponent,
+    DynamicComponentMasterComponent,
+    CustomScriptComponent
   ],
   imports: [
     SharedModule,
@@ -22,7 +26,7 @@ export function createCompiler(compilerFactory: CompilerFactory) {
   ],providers: [
     {
       provide: COMPILER_OPTIONS,
-      useValue: {},
+      useValue: {useJit: true},
       multi: true
     },
     {

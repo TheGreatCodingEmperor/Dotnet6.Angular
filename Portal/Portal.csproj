@@ -7,36 +7,42 @@
     <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.0.0"/>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.1"/>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.1"/>
-    <PackageReference Include="Serilog.Extensions.Logging.File" Version="2.0.0-dev-00032"/>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.0.1"/>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0"/>
-    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.1"/>
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.1" />
+    <PackageReference Include="Serilog.Extensions.Logging.File" Version="2.0.0-dev-00032" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.0.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.1" />
+    <PackageReference Include="Dapper" Version="2.0.123" />
+    <PackageReference Include="MySqlConnector" Version="2.1.7" />
+    <PackageReference Include="MiniProfiler.Integrations" Version="2.5.1" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Remove="ClientApp\dist\**"/>
-    <Compile Remove="Logs\**"/>
-    <Content Remove="$(SpaRoot)**"/>
-    <Content Remove="ClientApp\dist\**"/>
-    <Content Remove="Logs\**"/>
-    <None Remove="$(SpaRoot)**"/>
-    <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**"/>
+    <Compile Remove="ClientApp\dist\**" />
+    <Compile Remove="Logs\**" />
+    <Content Remove="$(SpaRoot)**" />
+    <Content Remove="ClientApp\dist\**" />
+    <Content Remove="Logs\**" />
+    <None Remove="$(SpaRoot)**" />
+    <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Remove="ClientApp\dist\**"/>
-    <EmbeddedResource Remove="Logs\**"/>
-    <None Remove="ClientApp\dist\**"/>
-    <None Remove="Logs\**"/>
+    <EmbeddedResource Remove="ClientApp\dist\**" />
+    <EmbeddedResource Remove="Logs\**" />
+    <None Remove="ClientApp\dist\**" />
+    <None Remove="Logs\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Flow.Lab\Flow.Lab.Lib\Flow.Lab.Lib.csproj" />
   </ItemGroup>
   <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
-    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install"/>
-    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build -- --prod"/>
-    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build:ssr -- --prod" Condition=" '$(BuildServerSideRenderer)' == 'true' "/>
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build -- --prod" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build:ssr -- --prod" Condition=" '$(BuildServerSideRenderer)' == 'true' " />
     <ItemGroup>
-      <DistFiles Include="$(SpaRoot)dist\**; $(SpaRoot)dist-server\**"/>
-      <DistFiles Include="$(SpaRoot)node_modules\**" Condition="'$(BuildServerSideRenderer)' == 'true'"/>
+      <DistFiles Include="$(SpaRoot)dist\**; $(SpaRoot)dist-server\**" />
+      <DistFiles Include="$(SpaRoot)node_modules\**" Condition="'$(BuildServerSideRenderer)' == 'true'" />
       <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
         <RelativePath>%(DistFiles.Identity)</RelativePath>
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>

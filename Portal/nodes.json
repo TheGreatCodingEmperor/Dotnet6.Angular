@@ -1,0 +1,45 @@
+﻿[
+    [
+        {
+            "name": "start"
+        }
+    ],
+    {
+        "group": "觸發",
+        "isThread": true,
+        "id": "sbsds0ses2s8s8se-s6s5sas5-4sds8s0-s8sdsas1-s2s9s9sases0sds0s1s7sds8",
+        "name": "APIReceive",
+        "type": "APIReceive",
+        "x": 47.5,
+        "y": 108,
+        "nextNodes": [
+            [
+                "sbs6sbs4s10sasdsa-s3s3s0s0-4seses6-s8scs1sa-sas2scses4s8sds7seses10s10"
+            ]
+        ],
+        "input": {
+            "method": "get",
+            "routing": "/api/test/{id?}",
+            "responseExpression": "payload",
+            "responseType": "json"
+        },
+        "readme": "\n參數<br>\nmsg[\"queryParams\"]<br>\nmsg[\"routeParams\"]<br>\nmsg[\"headers\"]<br>\nmsg[\"body\"]<br>\n        ",
+        "tab": 0
+    },
+    {
+        "group": "邏輯",
+        "id": "sbs6sbs4s10sasdsa-s3s3s0s0-4seses6-s8scs1sa-sas2scses4s8sds7seses10s10",
+        "name": "Function",
+        "type": "Function",
+        "x": 193.5,
+        "y": 106,
+        "nextNodes": [
+            []
+        ],
+        "input": {
+            "expression": "flowVariables['payload']=msg['body'];"
+        },
+        "readme": "",
+        "tab": 0
+    }
+]

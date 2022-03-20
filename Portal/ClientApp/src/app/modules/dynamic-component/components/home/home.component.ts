@@ -4,7 +4,6 @@ import { PrimengComponents } from 'src/app/modules/shared/models/dynamic-primeng
 @Component({
   selector: 'app-home',
   template: `
-    <dynamic-master [code]="code"></dynamic-master>
   `,
   styles: [
   ]

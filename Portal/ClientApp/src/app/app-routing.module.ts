@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DynamicComponentMasterComponent } from './modules/shared/components/dynamic-component-master/dynamic-component-master.component';
+import { DynamicComponentMasterComponent } from './modules/dynamic-component/components/dynamic-component-master/dynamic-component-master.component';
 
 const routes: Routes = [
   { path:'', component:DynamicComponentMasterComponent },
